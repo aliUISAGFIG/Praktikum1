@@ -37,7 +37,7 @@ public class ExtremsRisko extends InakzeptabelesRisiko {
         if (!super.equals(o)) return false;
         ExtremsRisko obj = (ExtremsRisko) o;
 
-        return versicherungsbeitrag == versicherungsbeitrag;
+        return obj.versicherungsbeitrag == this.versicherungsbeitrag;
 
 
     }
