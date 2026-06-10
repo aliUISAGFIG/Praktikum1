@@ -1,10 +1,11 @@
 package Pk1Projekt;
 
+import javafx.application.Application;
+
 public class Maiin {
 
      static void main(String[] args) {
-        Menu x = new Menu();
-        x.ZeigMenu();
+         Application.launch(Risikoverwaltung.class , args);
 
         }
     }

@@ -1,9 +1,16 @@
 package Pk1Projekt;
 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+
+
 import java.io.*;
 import java.util.*;
 
-public class Risikoverwaltung {
+public class Risikoverwaltung extends Application {
 
     private List<Risiko> risiken;
 
@@ -11,6 +18,25 @@ public class Risikoverwaltung {
     public Risikoverwaltung() {
         risiken = new ArrayList<>();
 
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+       primaryStage.setTitle("Risikoverwaltung");
+     primaryStage.setScene(new Scene(new Pane() , 800 , 600));
+     primaryStage.show();
+
+    //erste fenster
+     Stage stage1 = new Stage();
+     stage1.setTitle("Risikoerfasung");
+     stage1.setScene(new Scene(new Pane() , 250 , 150));
+     stage1.show();
+
+     //zweite fenster
+     Stage stage2 = new Stage();
+    stage2.setTitle("Rsikoerfassungggg");
+     stage2.setScene(new Scene(new Pane() , 250 , 150));
+     stage2.show();
     }
 
 
