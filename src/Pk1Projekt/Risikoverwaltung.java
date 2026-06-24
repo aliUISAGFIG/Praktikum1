@@ -2,9 +2,11 @@ package Pk1Projekt;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 
 
 import java.io.*;
@@ -22,26 +24,50 @@ public class Risikoverwaltung extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-       primaryStage.setTitle("Risikoverwaltung");
-     primaryStage.setScene(new Scene(new Pane() , 800 , 600));
-     primaryStage.show();
 
-    //erste fenster
-     Stage stage1 = new Stage();
-     stage1.setTitle("Risikoerfasung");
-     stage1.setScene(new Scene(new Pane() , 250 , 150));
-     stage1.show();
+        BorderPane root = new BorderPane();
+        Scene secne = new Scene(root ,600 ,400);
 
-     //zweite fenster
-     Stage stage2 = new Stage();
-    stage2.setTitle("Rsikoerfassungggg");
-     stage2.setScene(new Scene(new Pane() , 250 , 150));
-     stage2.show();
+        primaryStage.setTitle("RisikoVerwaltung");
+        primaryStage.setScene(secne);
+        primaryStage.show();
+        MenuBar menubar = new MenuBar();
+
+        //گزینه‌های کشویی رو دونه‌دونه بساز:
+        Menu menu = new Menu("Datei");
+        Menu menu1 = new Menu("Risiko");
+        Menu menu2 = new Menu("Anzeige");
+        //für menu
+        MenuItem itemladen = new MenuItem("Laden");
+        MenuItem itemspeichern = new MenuItem("Speichern");
+        MenuItem itemRisiko_in_Datei = new MenuItem("Risiko in Datei");
+        MenuItem itemBeenden = new MenuItem("Beenden");
+        //für menu1
+        MenuItem itemNeuRisiko = new MenuItem("Neues Risiko");
+        //für menu2
+        MenuItem itemRisiko_mit_max = new MenuItem("Risiko mit maximaler Rückstellung");
+        MenuItem itemSumme = new MenuItem("Summe aller Rückstellungen");
+
+        menu.getItems().addAll(itemladen , itemspeichern , itemRisiko_in_Datei , itemBeenden);
+        menu1.getItems().addAll(itemNeuRisiko);
+        menu2.getItems().addAll(itemRisiko_mit_max , itemSumme);
+
+        menubar.getMenus().addAll(menu , menu1 , menu2); //منوی "Datei" رو بنداز داخل نوار منوی اصلی:
+
+        root.setTop(menubar); //و در نهایت، همون‌طور که گفتیم، نوار منو رو به قسمت بالای صفحه اختصاص بده:
+
+  RisikoerfassungView risikoerfassungView = new RisikoerfassungView(null , primaryStage);
+  risikoerfassungView.showView();
+
+  AkzeptablesRisikoView akzeptablesRisikoView = new AkzeptablesRisikoView(null , primaryStage);
+  akzeptablesRisikoView.showView();
+
+  InakzeptablesRisikoView inakzeptablesRisikoView = new InakzeptablesRisikoView(null , primaryStage);
+  inakzeptablesRisikoView.showView();
     }
 
 
     public void aufnehmen(Risiko r) {
-
         risiken.add(r);
     }
 
@@ -57,24 +83,24 @@ public class Risikoverwaltung extends Application {
             }
         }
     }
-    public Risiko sucheRisikoMitMaxRueckstellung() {
-         Risiko x = risiken.get(0);
-        if(risiken == null){
-
-            System.out.println("Es gibt kein Risiko aud der Liste ");
+    public Risiko sucheRisikoMitMaxRueckstellung () throws LeereListeException {
+        if(risiken.isEmpty()){
+            throw new LeereListeException("List ist leer");
         }
-        else {
+
+        Risiko maxRisiko = risiken.get(0);
+
         for(int i = 1 ; i < risiken.size() ; i++){
 
-            if( risiken.get(i).ermittleRueckstellung() > x.ermittleRueckstellung() ){
-                x = risiken.get(i);
+            if( risiken.get(i).ermittleRueckstellung() > maxRisiko.ermittleRueckstellung() ){
+                maxRisiko = risiken.get(i);
             }
 
         }
-            x.druckDaten(System.out);
-        }
+            maxRisiko.druckDaten(System.out);
 
-        return x;
+
+        return maxRisiko;
     }
     public void List_in_datei_Speichern(File file) throws IOException {
                 try (  FileOutputStream fil = new FileOutputStream(file);

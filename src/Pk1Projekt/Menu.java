@@ -2,9 +2,7 @@ package Pk1Projekt;
 
 import javax.swing.JOptionPane;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.InputMismatchException;
 
 public class Menu {
@@ -28,7 +26,12 @@ public class Menu {
                 String eingabe = JOptionPane.showInputDialog("\t\t\tRisikoverwaltung\n\n" + "1. Risiko aufnehmen\n" +
                         "2. Zeige alle Risiken\n" + "3. Risikoliste in Datei schreiben \n" + "4. Zeige Risiko mit maximaler Ruckstellung\n" + "5. Berechne Summe aller Ruckstellungen\n"
                         + "6. Speichern\n" + "7. Laden\n" + "8. Beenden\n\n" + "Bitte Menü punkt wählen:");
-                byte auswahl = Byte.parseByte(eingabe);
+                if (eingabe == null){
+                    JOptionPane.showMessageDialog(null, "Programm wurde beendet");
+                    break;
+
+                }
+                int auswahl = Integer.parseInt(eingabe);
 
                 if (auswahl < 1 || auswahl > 8) {
                     throw new InvalidMenuOptionException("Bitte ein zahl zwischen 1 bis 8");
