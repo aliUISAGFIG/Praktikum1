@@ -1,4 +1,4 @@
-package Pk1Projekt;
+package pk1.rv.fachlogik;
 
 public class InvalidMenuOptionException extends Exception {
     public InvalidMenuOptionException(){

@@ -1,16 +1,22 @@
-package Pk1Projekt;
+package pk1.rv.fachlogik;
 
-import javax.swing.*;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.Objects;
 
 public class InakzeptabelesRisiko extends Risiko {
     private String massnahme;
+    private static final long serialVersionUID = 100L;
 
     public InakzeptabelesRisiko(String bezeichnung, float eintrittwahrscheilicjkeit, float kosten_im_schadenfall, String massnahme) {
         super(bezeichnung, eintrittwahrscheilicjkeit, kosten_im_schadenfall);
         this.massnahme = massnahme;
 
+    }
 
+    public InakzeptabelesRisiko() {
+        super();
     }
 
     @Override
@@ -24,14 +30,33 @@ public class InakzeptabelesRisiko extends Risiko {
 
     }
 
+    public void setMassnahme(String massnahme) {
+        this.massnahme = massnahme;
+    }
+
 
     @Override
-    public void druckDaten() {
+    public void druckDaten(OutputStream stream) {
+        PrintStream ps1 = new PrintStream(stream);
         int monate = getErstellungsdatum().getMonthValue();
         int jahr = getErstellungsdatum().getYear();
-        JOptionPane.showMessageDialog(null , "Id " + getId() + " Inakzeptables Risiko " + getbezeichnung() + " aus " + monate + "/" + jahr + ";\n" +
-                "Risikowert " + berechneRisikowert() + "; Rückstellung " + ermittleRueckstellung() + ";\n" +
-                "Maßnahme " + getMassnahme());
+        ps1.printf("Id %d Inakzeptables Risiko %s aus %d/%d;%nRisikowert %.2f; Rückstellung %.2f;%nMaßnahme %s%n",
+                getId(),
+                getbezeichnung(),
+                monate,
+                jahr,
+                berechneRisikowert(),
+                ermittleRueckstellung(),
+                getMassnahme());
+
+    }
+
+    @Override
+    public String toString() {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        druckDaten(baos);
+        return baos.toString();
+
     }
 
     @Override

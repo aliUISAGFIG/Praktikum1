@@ -1,10 +1,12 @@
-package Pk1Projekt;
+package pk1.rv.fachlogik;
 
-import javax.swing.*;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.Objects;
 
 public class ExtremsRisko extends InakzeptabelesRisiko {
-
+    private static final long serialVersionUID = 100L;
     private float versicherungsbeitrag;
 
     public ExtremsRisko(String bezeichung, float eintrittwahrscheilicjkeit, float kosten_im_schadenfall, String massnahme, float versicherungsbeitrag) {
@@ -12,9 +14,16 @@ public class ExtremsRisko extends InakzeptabelesRisiko {
         this.versicherungsbeitrag = versicherungsbeitrag;
     }
 
+    public ExtremsRisko() {
+        super();
+    }
 
     public float getVersicherungsbeitrag() {
         return versicherungsbeitrag;
+    }
+
+    public void setVersicherungsbeitrag(float setversicherung) {
+        versicherungsbeitrag = setversicherung;
     }
 
     @Override
@@ -23,12 +32,25 @@ public class ExtremsRisko extends InakzeptabelesRisiko {
     }
 
     @Override
-    public void druckDaten() {
+    public void druckDaten(OutputStream stream) {
+        PrintStream str = new PrintStream(stream);
         int monate = getErstellungsdatum().getMonthValue();
         int jahr = getErstellungsdatum().getYear();
-        JOptionPane.showMessageDialog(null , "Id " + getId() + " Extremes Risiko " + getbezeichnung() + " aus " + monate + "/" + jahr + ";\n" +
-                "Versicherungbeitrag " + getVersicherungsbeitrag() + "Maßnahme " + getMassnahme());
+        str.printf("Id %d Extremes Risiko %s aus %d/%d;%nVersicherungsbeitrag %.2f Maßnahme %s%n",
+                getId(),
+                getbezeichnung(),
+                monate,
+                jahr,
+                getVersicherungsbeitrag(),
+                getMassnahme());
+    }
 
+    @Override
+    public String toString() {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        druckDaten(baos);
+        return baos.toString();
 
     }
 
@@ -37,7 +59,7 @@ public class ExtremsRisko extends InakzeptabelesRisiko {
         if (!super.equals(o)) return false;
         ExtremsRisko obj = (ExtremsRisko) o;
 
-        return versicherungsbeitrag == versicherungsbeitrag;
+        return obj.versicherungsbeitrag == this.versicherungsbeitrag;
 
 
     }
