@@ -32,7 +32,8 @@ public class Risikoverwaltung {
     }
 
 
-    public void zeigeRisiken() throws LeereListeException {
+    public String zeigeRisiken() throws LeereListeException {
+        String alleRisken = "";
         if (list.isEmpty()) {
             throw new LeereListeException("Liste ist leer");
         } else {
@@ -40,9 +41,11 @@ public class Risikoverwaltung {
             Iterator<Risiko> risikoIterator = list.iterator();
             while (risikoIterator.hasNext()) {
                 Risiko r = risikoIterator.next();
-                r.druckDaten(System.out);
+                System.out.println();
+                alleRisken += r.toString();
             }
         }
+        return alleRisken;
     }
 
     public Risiko sucheRisikoMitMaxRueckstellung() throws LeereListeException {

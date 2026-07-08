@@ -1,13 +1,12 @@
 package pk1.rv.gui;
 
+
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import pk1.rv.controller.RisikoController;
-import pk1.rv.datenhaltung.PersistenzException;
+import pk1.rv.fachlogik.PersistenzException;
 import pk1.rv.fachlogik.*;
 
 import javax.swing.*;
@@ -30,12 +29,15 @@ public class HaputMenuFenster extends Stage {
 
     MenuBar menubar = new MenuBar();
     BorderPane root = new BorderPane();
+    ListView<Risiko> listView = new ListView<>();
 
 
     public HaputMenuFenster() {
 
         this.setTitle("HaputFenster");
-
+        this.setWidth(1000);
+        this.setHeight(400);
+        listView.setItems(controller.getObservableList());
         menuDatei.getItems().addAll(itemladen, itemspeichern, itemRisikoInDatei, itemBeenden);
         menuRisiko.getItems().addAll(itemNeuRisiko);
         menuAnzeige.getItems().addAll(itemRisikoMitMaximalerRueckstellung, itemSumme);
@@ -43,8 +45,8 @@ public class HaputMenuFenster extends Stage {
         menubar.getMenus().addAll(menuDatei, menuRisiko, menuAnzeige); //منوی "Datei" رو بنداز داخل نوار منوی اصلی:
 
         root.setTop(menubar); //و در نهایت، همون‌طور که گفتیم، نوار منو رو به قسمت بالای صفحه اختصاص بده:
-
-        Scene secne = new Scene(root, 600, 400);
+        root.setCenter(listView);
+        Scene secne = new Scene(root);
         this.setScene(secne);
         this.show();
 
@@ -58,7 +60,6 @@ public class HaputMenuFenster extends Stage {
                 new ErrorFensterDialog(e2.getMessage()).showView();
             }
         });
-
 
       //in File Serialisieren
         itemspeichern.setOnAction(e -> {
@@ -113,6 +114,7 @@ public class HaputMenuFenster extends Stage {
                 String bezeichnung = risikoerfasung.getTxtBezeichnungRisikoerfassung();
                 float eintritt = risikoerfasung.getTxtEintrittRisikoerfassung();
                 float kosten = risikoerfasung.getTxtKostenRisikoerfassung();
+
                 Risikotyp typ = controller.ermittleRisikoTyp(eintritt, kosten);
 
                 switch (typ) {
@@ -157,8 +159,6 @@ public class HaputMenuFenster extends Stage {
             } catch (LeereListeException e4) {
                 new ErrorFensterDialog("Es existiert kein Risiko").showView();
             }
-
-
         });
 
         itemSumme.setOnAction(e7 -> {

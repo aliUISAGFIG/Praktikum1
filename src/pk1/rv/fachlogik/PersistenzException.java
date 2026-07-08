@@ -1,4 +1,4 @@
-package pk1.rv.datenhaltung;
+package pk1.rv.fachlogik;
 
 public class PersistenzException extends RuntimeException {
 

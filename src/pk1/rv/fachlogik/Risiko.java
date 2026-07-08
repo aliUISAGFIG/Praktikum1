@@ -97,7 +97,7 @@ public abstract class Risiko implements Comparable<Risiko>, Serializable {
 
     }
 
-    public String getbezeichnung() {
+    public String getBezeichnung() {
         return bezeichnung;
     }
 

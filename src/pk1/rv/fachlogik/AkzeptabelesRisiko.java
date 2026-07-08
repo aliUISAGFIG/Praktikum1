@@ -29,8 +29,8 @@ public class AkzeptabelesRisiko extends Risiko {
 
     @Override
     public String toString() {
-        return "Id " + getId() + " Akzeptables Risiko " + getbezeichnung() +
-                " aus " + getMonate() + "/" + getJahr() + "\nRisikowert " +
+        return "Id " + getId() + " Akzeptables Risiko " + getBezeichnung() +
+                " aus " + getMonate() + "/" + getJahr() + " Risikowert " +
                 berechneRisikowert() + " Rückstellung " + ermittleRueckstellung();
 
     }

@@ -33,25 +33,13 @@ public class ExtremsRisko extends InakzeptabelesRisiko {
 
     @Override
     public void druckDaten(OutputStream stream) {
-        PrintStream str = new PrintStream(stream);
-        int monate = getErstellungsdatum().getMonthValue();
-        int jahr = getErstellungsdatum().getYear();
-        str.printf("Id %d Extremes Risiko %s aus %d/%d;%nVersicherungsbeitrag %.2f Maßnahme %s%n",
-                getId(),
-                getbezeichnung(),
-                monate,
-                jahr,
-                getVersicherungsbeitrag(),
-                getMassnahme());
+        PrintStream ps = new PrintStream(stream);
+        ps.printf(toString());
     }
 
     @Override
     public String toString() {
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        druckDaten(baos);
-        return baos.toString();
-
+        return super.toString() + "Versischerung " + getVersicherungsbeitrag();
     }
 
     @Override

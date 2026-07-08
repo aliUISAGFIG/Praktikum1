@@ -37,7 +37,7 @@ public class RisikoerfassungView extends Stage {
         txtEintritt = new TextField();
         txtKosten = new TextField();
         if (risiko != null) {
-            txtBezeichnung.setText(risiko.getbezeichnung());
+            txtBezeichnung.setText(risiko.getBezeichnung());
             txtEintritt.setText(Float.toString(risiko.getEintrittswahrcheiligkeit()));
             txtKosten.setText(Float.toString(risiko.getKosten_im_schadenfall()));
         }
@@ -76,10 +76,6 @@ public class RisikoerfassungView extends Stage {
             new ErrorFensterDialog("Bitte geben Sie gültige Zahlenwert ein!").showView();
 
         }
-
-
-
-
 
         });
 

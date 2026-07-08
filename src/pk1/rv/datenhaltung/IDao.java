@@ -1,5 +1,6 @@
 package pk1.rv.datenhaltung;
 
+import pk1.rv.fachlogik.PersistenzException;
 import pk1.rv.fachlogik.Risiko;
 import java.util.List;
 

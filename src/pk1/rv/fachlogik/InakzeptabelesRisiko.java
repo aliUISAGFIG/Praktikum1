@@ -37,25 +37,16 @@ public class InakzeptabelesRisiko extends Risiko {
 
     @Override
     public void druckDaten(OutputStream stream) {
-        PrintStream ps1 = new PrintStream(stream);
-        int monate = getErstellungsdatum().getMonthValue();
-        int jahr = getErstellungsdatum().getYear();
-        ps1.printf("Id %d Inakzeptables Risiko %s aus %d/%d;%nRisikowert %.2f; Rückstellung %.2f;%nMaßnahme %s%n",
-                getId(),
-                getbezeichnung(),
-                monate,
-                jahr,
-                berechneRisikowert(),
-                ermittleRueckstellung(),
-                getMassnahme());
+        PrintStream ps = new PrintStream(stream);
+        ps.printf(toString());
 
     }
 
     @Override
     public String toString() {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        druckDaten(baos);
-        return baos.toString();
+        return "Id " + getId() + " Akzeptables Risiko " + getBezeichnung() +
+                " aus " + getMonate() + "/" + getJahr() + " Risikowert " +
+                berechneRisikowert() + " Rückstellung " + ermittleRueckstellung() + " Maßnahme  " + getMassnahme();
 
     }
 
